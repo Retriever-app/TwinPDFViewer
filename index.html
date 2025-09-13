@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TwinPDFViewer - 2つのPDFを切り替え表示</title>
+    <meta name="description" content="TwinPDFViewerは、2つのPDFファイルを効率的に切り替えて表示できるPDFビューアーアプリです。快適な文書閲覧を実現します。">
+    <meta name="keywords" content="PDF, ビューアー, 切り替え表示, 文書閲覧, iOS, アプリ">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #87CEEB 0%, #B0E0E6 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 60px 0;
+            color: white;
+        }
+        
+        .logo {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        
+        .main-content {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .feature-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        
+        .section-title {
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .support-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 50px;
+            border-radius: 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .support-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .support-link {
+            display: inline-block;
+            padding: 12px 25px;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 25px;
+            border: 2px solid #667eea;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .support-link:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            opacity: 0.8;
+        }
+        
+        .app-info {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #28a745;
+        }
+        
+        .version-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #dee2e6;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2.5em;
+            }
+            
+            .main-content {
+                padding: 40px 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .support-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="logo">TwinPDFViewer</h1>
+            <p class="tagline">2つのPDFを切り替え表示 - 効率的な文書閲覧</p>
+        </header>
+
+        <div class="main-content">
+            <h2 class="section-title">アプリの特徴</h2>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <span class="feature-icon">📄</span>
+                    <h3 class="feature-title">切り替え表示</h3>
+                    <p class="feature-description">
+                        2つのPDFファイルを素早く切り替えて表示。効率的な文書閲覧が可能です。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔍</span>
+                    <h3 class="feature-title">ズーム機能</h3>
+                    <p class="feature-description">
+                        直感的なピンチズームで、細かい文字も鮮明に表示。快適な読書体験を提供します。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📁</span>
+                    <h3 class="feature-title">フォルダ対応</h3>
+                    <p class="feature-description">
+                        デバイス内のフォルダから直接PDFファイルを選択。整理された文書管理が可能です。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3 class="feature-title">高速切り替え</h3>
+                    <p class="feature-description">
+                        最適化されたレンダリングエンジンで、PDFファイル間の切り替えが瞬時に行えます。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <h3 class="feature-title">直感的操作</h3>
+                    <p class="feature-description">
+                        シンプルで分かりやすいインターフェース。誰でも簡単に使いこなせます。
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <h3 class="feature-title">プライバシー重視</h3>
+                    <p class="feature-description">
+                        すべてのデータはローカルに保存。外部への送信は一切ありません。
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="app-info">
+                <h3>📱 アプリ情報</h3>
+                <div class="version-info">
+                    <p><strong>アプリ名:</strong> TwinPDFViewer</p>
+                    <p><strong>開発者:</strong> Retriever.app</p>
+                    <p><strong>カテゴリ:</strong> ビジネス / 生産性</p>
+                    <p><strong>対応OS:</strong> iOS 14.0以降</p>
+                    <p><strong>価格:</strong> 無料</p>
+                </div>
+            </div>
+
+            <div class="support-section">
+                <h2 class="section-title">サポート</h2>
+                <p>
+                    TwinPDFViewerに関するご質問、ご要望、バグ報告などがございましたら、
+                    お気軽にお問い合わせください。
+                </p>
+                
+                <div class="support-links">
+                    <a href="mailto:info.retriever.app@gmail.com" class="support-link">
+                        📧 メールサポート
+                    </a>
+                    <a href="privacy_policy.html" class="support-link">
+                        🔒 プライバシーポリシー
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Retriever.app. All rights reserved.</p>
+            <p>TwinPDFViewer - 効率的なPDF閲覧のための革新的なアプリ</p>
+        </footer>
+    </div>
+</body>
+</html>
